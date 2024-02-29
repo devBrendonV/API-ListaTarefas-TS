@@ -1,4 +1,6 @@
 import { createContext, useState, ReactNode } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 
 interface FormatoLista {
@@ -14,6 +16,7 @@ interface ContextProps {
   setMensagem: (message: string | undefined) => void;
   setListaAtual: (list: FormatoLista[]) => void;
   deslogar: () => void;
+  puxarDados: (recebido: string) => void;
 }
 
 export const Context = createContext<ContextProps | undefined>(undefined);
@@ -34,7 +37,20 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
     setIdAtual("");
   }
 
-
+  const puxarDados = async (recebido: string) => {
+    try {
+      const respo = await axios.get(`${URL}/lista/${recebido}`);
+      setIdAtual(respo.data.id);
+      setListaAtual(respo.data.lista);
+      setLogado(true);
+    } catch (e) {
+      if ((e as TypeError).message.includes("404")) {
+        toast.error("ID não encontrado");
+      } else {
+        toast.error("Falha ao processar informação");
+      }
+    }
+  };
 
   return (
     <Context.Provider
@@ -45,7 +61,8 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
         logado,
         setMensagem,
         setListaAtual,
-        deslogar 
+        deslogar,
+        puxarDados 
       }}
     >
       {children}
