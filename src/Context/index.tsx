@@ -2,10 +2,11 @@ import { createContext, useState, ReactNode } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const URL = "http://localhost:3000"; // Substitua pelo valor real da sua URL
 
 interface FormatoLista {
-    tarefa:string,
-    feito:boolean
+  tarefa: string;
+  feito: boolean;
 }
 
 interface ContextProps {
@@ -81,7 +82,7 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
 
   const apagar = async (recebido: string) => {
     try {
-      const respo = await axios.delete(`${URL}/lista/${recebido}`);
+      await axios.delete(`${URL}/lista/${recebido}`);
       toast.success("Lista Deletada");
       setLogado(false);
       setListaAtual([]);
