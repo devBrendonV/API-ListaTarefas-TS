@@ -19,6 +19,7 @@ interface ContextProps {
   puxarDados: (recebido: string) => void;
   criar: () => void;
   salvar: (recebido: string) => void;
+  apagar: (recebido: string) => void;
 }
 
 export const Context = createContext<ContextProps | undefined>(undefined);
@@ -78,6 +79,21 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
     }
   };
 
+  const apagar = async (recebido: string) => {
+    try {
+      const respo = await axios.delete(`${URL}/lista/${recebido}`);
+      toast.success("Lista Deletada");
+      setLogado(false);
+      setListaAtual([]);
+      setIdAtual("");
+    } catch (e) {
+      if ((e as TypeError).message.includes("404")) {
+        toast.error("ID não encontrado");
+      } else {
+        toast.error("Falha ao processar informação");
+      }
+    }
+  };
 
   return (
     <Context.Provider
@@ -91,7 +107,8 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
         deslogar,
         puxarDados,
         criar,
-        salvar 
+        salvar,
+        apagar 
       }}
     >
       {children}
