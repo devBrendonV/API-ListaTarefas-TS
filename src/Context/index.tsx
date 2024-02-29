@@ -17,6 +17,7 @@ interface ContextProps {
   setListaAtual: (list: FormatoLista[]) => void;
   deslogar: () => void;
   puxarDados: (recebido: string) => void;
+  criar: () => void;
 }
 
 export const Context = createContext<ContextProps | undefined>(undefined);
@@ -52,6 +53,18 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
     }
   };
 
+  const criar = async () => {
+    try {
+      const respo = await axios.post(`${URL}/lista`, { lista: [] });
+      setIdAtual(respo.data.id);
+      setListaAtual(respo.data.lista);
+      toast.success(`Seu novo ID: ${respo.data.id}`);
+      setLogado(true);
+    } catch (error) {
+      toast.error("Falha ao processar informação");
+    }
+  };
+
   return (
     <Context.Provider
       value={{
@@ -62,7 +75,8 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
         setMensagem,
         setListaAtual,
         deslogar,
-        puxarDados 
+        puxarDados,
+        criar 
       }}
     >
       {children}
