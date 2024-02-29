@@ -13,6 +13,7 @@ interface ContextProps {
   logado: boolean;
   setMensagem: (message: string | undefined) => void;
   setListaAtual: (list: FormatoLista[]) => void;
+  deslogar: () => void;
 }
 
 export const Context = createContext<ContextProps | undefined>(undefined);
@@ -27,6 +28,14 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
   const [idAtual, setIdAtual] = useState("");
   const [mensagem, setMensagem] = useState<string | undefined>();
 
+  function deslogar() {
+    setLogado(false);
+    setListaAtual([]);
+    setIdAtual("");
+  }
+
+
+
   return (
     <Context.Provider
       value={{
@@ -35,7 +44,8 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
         idAtual,
         logado,
         setMensagem,
-        setListaAtual, 
+        setListaAtual,
+        deslogar 
       }}
     >
       {children}
