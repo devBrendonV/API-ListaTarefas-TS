@@ -18,6 +18,7 @@ interface ContextProps {
   deslogar: () => void;
   puxarDados: (recebido: string) => void;
   criar: () => void;
+  salvar: (recebido: string) => void;
 }
 
 export const Context = createContext<ContextProps | undefined>(undefined);
@@ -65,6 +66,19 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
     }
   };
 
+  const salvar = async (recebido: string) => {
+    try {
+      const respo = await axios.put(`${URL}/lista/${idAtual}`, {
+        lista: recebido,
+      });
+      setListaAtual(respo.data.lista);
+      toast.success("Lista Salva");
+    } catch (error) {
+      toast.error("Falha ao processar informação");
+    }
+  };
+
+
   return (
     <Context.Provider
       value={{
@@ -76,7 +90,8 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
         setListaAtual,
         deslogar,
         puxarDados,
-        criar 
+        criar,
+        salvar 
       }}
     >
       {children}
