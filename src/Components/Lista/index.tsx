@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { Box, Typography, IconButton, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { Context } from "../../Context";
-import { FormatoLista } from "../../types/types";
+import { FormatoLista } from "../../types/FormatoLista";
 import { Historico } from "../Historico";
 import  OpcoesLista  from "./OpcoesLista";
 import  {TarefaConcluida}  from "./TarefaConcluida";
