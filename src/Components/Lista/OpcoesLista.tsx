@@ -8,7 +8,7 @@ import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
 import { Context } from "../../Context";
 import DeletarLista from "./DeletarLista";
 
-import { FormatoLista } from "../../types/types";
+import { FormatoLista } from "../../types/FormatoLista";
 
 
 interface OpcoesListaProps {
