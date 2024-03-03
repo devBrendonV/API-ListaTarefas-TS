@@ -2,12 +2,11 @@ import { createContext, useState, ReactNode } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const URL = "http://localhost:3000"; // Substitua pelo valor real da sua URL
+import {FormatoLista} from "../types/FormatoLista"
 
-interface FormatoLista {
-  tarefa: string;
-  feito: boolean;
-}
+const URL = "http://localhost:3000"; 
+
+
 
 interface ContextProps {
   listaAtual: FormatoLista[];
@@ -19,7 +18,7 @@ interface ContextProps {
   deslogar: () => void;
   puxarDados: (recebido: string) => void;
   criar: () => void;
-  salvar: (recebido: string) => void;
+  salvar: (recebido: FormatoLista[]) => void;
   apagar: (recebido: string) => void;
 }
 
@@ -68,7 +67,7 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
     }
   };
 
-  const salvar = async (recebido: string) => {
+  const salvar = async (recebido: FormatoLista[]) => {
     try {
       const respo = await axios.put(`${URL}/lista/${idAtual}`, {
         lista: recebido,
