@@ -5,7 +5,7 @@ import { Context } from "../../Context";
 import { FormatoLista } from "../../types/FormatoLista";
 import { Historico } from "../Historico";
 import  OpcoesLista  from "./OpcoesLista";
-import  {TarefaConcluida}  from "./TarefaConcluida";
+import  TarefaConcluida  from "./TarefaConcluida";
 
 
 export const Lista = () => {

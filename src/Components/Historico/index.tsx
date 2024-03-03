@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { ItemLista } from "../Lista/ItemLista"; 
-import { FormatoLista } from "../../types/types";
+import { FormatoLista } from "../../types/FormatoLista";
 
 interface HistoricoProps {
   value: {
