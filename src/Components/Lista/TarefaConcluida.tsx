@@ -1,7 +1,59 @@
-import React from 'react'
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 
-export const TarefaConcluida = () => {
-  return (
-    <div>TarefaConcluida</div>
-  )
+interface TarefaConcluidaProps {
+  func: {
+    setTarefaConcluida: (concluida: boolean) => void;
+  };
 }
+
+const TarefaConcluida= (props:TarefaConcluidaProps) => {
+  return (
+    <FormControl sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+      <FormLabel id="demo-row-radio-buttons-group-label" sx={{ marginRight: "10px", fontSize: "18px" }}>
+        Tarefa Concluída:
+      </FormLabel>
+      <RadioGroup
+        defaultValue="nao"
+        row
+        aria-labelledby="demo-row-radio-buttons-group-label"
+        name="row-radio-buttons-group"
+      >
+        <FormControlLabel
+          value="sim"
+          control={
+            <Radio
+              size="small"
+              color="success"
+              onClick={() => props.func.setTarefaConcluida(true)}
+            />
+          }
+          label="Sim"
+        />
+        <FormControlLabel
+          value="nao"
+          control={
+            <Radio
+              size="small"
+              sx={{
+                color: "#f30c0cf4",
+                "&.Mui-checked": {
+                  color: "#f30c0cf4",
+                },
+              }}
+              id="feito"
+              name="tarefafeita"
+              onClick={() => props.func.setTarefaConcluida(false)}
+            />
+          }
+          label="Não"
+        />
+      </RadioGroup>
+    </FormControl>
+  );
+};
+
+export default TarefaConcluida;
