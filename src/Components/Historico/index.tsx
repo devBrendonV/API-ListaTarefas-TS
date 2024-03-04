@@ -1,4 +1,3 @@
-import React from "react";
 import { Box } from "@mui/material";
 import { ItemLista } from "../Lista/ItemLista"; 
 import { FormatoLista } from "../../types/FormatoLista";
@@ -8,14 +7,16 @@ interface HistoricoProps {
     total: number;
     lista: FormatoLista[]; 
   };
-  func: {
     tarefaFeita: (index: number) => void;
     mudarPosicao: (from: number, to: number) => void;
     apagarTarefa: (index: number) => void;
-  };
 }
 
 export const Historico = (props:HistoricoProps) => {
+  const {total,lista} = props.value
+  const {tarefaFeita,mudarPosicao,apagarTarefa} = props
+
+
   if (props.value.total === 0) {
     return (
       <Box
@@ -39,24 +40,24 @@ export const Historico = (props:HistoricoProps) => {
       height={"40vh"}
       alignItems={"center"}
     >
-      {props.value.lista.map((e, i) => {
+      {lista.map((e, i) => {
         return (
           <ItemLista
             key={i}
             tarefaFeita={() => {
-              props.func.tarefaFeita(i);
+              tarefaFeita(i);
             }}
             mudarPosicao={(from, to) => {
-              props.func.mudarPosicao(from, to);
+              mudarPosicao(from, to);
             }}
             apagarTarefa={() => {
-              props.func.apagarTarefa(i);
+              apagarTarefa(i);
             }}
             value={{
               tarefa: e.tarefa,
               feito: e.feito,
               indice: i,
-              total: props.value.total,
+              total: total,
             }}
           />
         );
