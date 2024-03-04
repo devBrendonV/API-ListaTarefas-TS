@@ -10,11 +10,8 @@ const URL = "http://localhost:3000";
 
 interface ContextProps {
   listaAtual: FormatoLista[];
-  mensagem: string | undefined;
   idAtual: string;
   logado: boolean;
-  setMensagem: (message: string | undefined) => void;
-  setListaAtual: (list: FormatoLista[]) => void;
   deslogar: () => void;
   puxarDados: (recebido: string) => void;
   criar: () => void;
@@ -32,7 +29,6 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
   const [logado, setLogado] = useState(false);
   const [listaAtual, setListaAtual] = useState<FormatoLista[]>([]);
   const [idAtual, setIdAtual] = useState("");
-  const [mensagem, setMensagem] = useState<string | undefined>();
 
   function deslogar() {
     setLogado(false);
@@ -99,11 +95,8 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
     <Context.Provider
       value={{
         listaAtual,
-        mensagem,
         idAtual,
         logado,
-        setMensagem,
-        setListaAtual,
         deslogar,
         puxarDados,
         criar,
