@@ -17,7 +17,7 @@ export const Historico = (props:HistoricoProps) => {
   const {tarefaFeita,mudarPosicao,apagarTarefa} = props
 
 
-  if (props.value.total === 0) {
+  if (total === 0) {
     return (
       <Box
         display={"flex"}
