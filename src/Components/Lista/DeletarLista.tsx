@@ -1,4 +1,3 @@
-import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -11,7 +10,11 @@ import { useContext, useState } from "react";
 import { IconButton } from "@mui/material";
 
 export default function DeletarLista() {
-  const { apagar, idAtual } = useContext(Context);
+  const context = useContext(Context);
+  if (!context) {
+    return null;
+  }
+  const { apagar, idAtual } = context;
   const [open, setOpen] = useState<boolean>(false);
 
   const handleClickOpen = () => {

@@ -8,9 +8,12 @@ import OpcoesLista from "./OpcoesLista";
 import TarefaConcluida from "./TarefaConcluida";
 
 export const Lista = () => {
-
+  const context = useContext(Context);
+  if (!context) {
+    return null;
+  }
+  const { listaAtual, idAtual } = context;
   const [listaProvisoria, setListaProvisoria] = useState<FormatoLista[]>([]);
-  const { listaAtual, idAtual } = useContext(Context);
   const [salvarMudancas, setSalvarMudancas] = useState<boolean>(false);
   const [tarefaConcluida, setTarefaConcluida] = useState<boolean>(false);
   const [texto, setTexto] = useState<string>("");
@@ -76,12 +79,12 @@ export const Lista = () => {
     setListaProvisoria((prevLista) => {
       const listaMudancaProvisoria = [...prevLista];
       const temp = listaMudancaProvisoria[posicaoAtual];
-      listaMudancaProvisoria[posicaoAtual] = listaMudancaProvisoria[posicaoNova];
+      listaMudancaProvisoria[posicaoAtual] =
+        listaMudancaProvisoria[posicaoNova];
       listaMudancaProvisoria[posicaoNova] = temp;
       return listaMudancaProvisoria;
     });
   };
-
 
   return (
     <Box
@@ -126,7 +129,7 @@ export const Lista = () => {
           </Typography>
 
           <OpcoesLista
-            func={{ setListaProvisoria }}
+            mudarListaProvisoria={(lista:FormatoLista[])=>setListaProvisoria(lista)}
             value={{ listaProvisoria, salvarMudancas }}
           />
         </Box>
@@ -158,7 +161,7 @@ export const Lista = () => {
         </Box>
 
         <Box className="send-button-container">
-          <TarefaConcluida func={{ setTarefaConcluida }} />
+          <TarefaConcluida tarefaConcluida={(tarefa:boolean)=>setTarefaConcluida(tarefa)}/>
         </Box>
       </Box>
       <Box flex={1} width="100%" color="black">

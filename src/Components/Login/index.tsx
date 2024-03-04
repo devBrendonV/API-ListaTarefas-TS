@@ -3,11 +3,13 @@ import { Box, Typography, Button, TextField } from "@mui/material";
 import { Context } from "../../Context";
 
 export const Login: React.FC = () => {
+  const context = useContext(Context);
+  if (!context) {
+    return null;
+  }
+  const { criar, idAtual, puxarDados } = context;
+
   const [meuID, setMeuID] = useState<string>("");
-
-
-  const { criar, idAtual, puxarDados } = useContext(Context);
-
   useEffect(() => {
     setMeuID(idAtual);
   }, [idAtual]);
@@ -22,7 +24,6 @@ export const Login: React.FC = () => {
       }}
     >
       <Typography
-
         sx={{
           textAlign: "center",
           fontWeight: "bold",

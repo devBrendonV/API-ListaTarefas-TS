@@ -5,7 +5,11 @@ import { Lista } from "../Lista";
 import { Context } from "../../Context";
 
 export const Content = () => {
-  const { logado } = useContext(Context);
+  const context = useContext(Context)
+  if(!context){
+    return null
+  }
+  const { logado } = context;
 
   if (!logado) {
     return (
