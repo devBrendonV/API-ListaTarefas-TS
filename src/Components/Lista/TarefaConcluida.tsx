@@ -5,15 +5,19 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
 interface TarefaConcluidaProps {
-  func: {
-    setTarefaConcluida: (concluida: boolean) => void;
-  };
+  tarefaConcluida: (concluida: boolean) => void;
 }
 
-const TarefaConcluida= (props:TarefaConcluidaProps) => {
+const TarefaConcluida = (props: TarefaConcluidaProps) => {
+  const {tarefaConcluida} = props
   return (
-    <FormControl sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-      <FormLabel id="demo-row-radio-buttons-group-label" sx={{ marginRight: "10px", fontSize: "18px" }}>
+    <FormControl
+      sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+    >
+      <FormLabel
+        id="demo-row-radio-buttons-group-label"
+        sx={{ marginRight: "10px", fontSize: "18px" }}
+      >
         Tarefa Concluída:
       </FormLabel>
       <RadioGroup
@@ -28,7 +32,7 @@ const TarefaConcluida= (props:TarefaConcluidaProps) => {
             <Radio
               size="small"
               color="success"
-              onClick={() => props.func.setTarefaConcluida(true)}
+              onClick={() => tarefaConcluida(true)}
             />
           }
           label="Sim"
@@ -46,7 +50,7 @@ const TarefaConcluida= (props:TarefaConcluidaProps) => {
               }}
               id="feito"
               name="tarefafeita"
-              onClick={() => props.func.setTarefaConcluida(false)}
+              onClick={() => tarefaConcluida(false)}
             />
           }
           label="Não"

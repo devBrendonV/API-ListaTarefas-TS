@@ -19,8 +19,9 @@ interface ItemListaProps {
 
 
 export const ItemLista  = (props:ItemListaProps) => {
-  const data = props.value;
-  const [mostrarOpcoes, setMostrarOpcoes] = useState(false);
+  const { tarefa,feito,indice,total} = props.value
+  const {tarefaFeita,mudarPosicao,apagarTarefa} = props
+  const [mostrarOpcoes, setMostrarOpcoes] = useState<boolean>(false);
 
   return (
     <Box
@@ -29,9 +30,9 @@ export const ItemLista  = (props:ItemListaProps) => {
       marginBottom={"5px"}
       padding={"3px 10px"}
       sx={{
-        backgroundColor:`${data.feito ? "#22c55e" : "#a8a29e"}`
+        backgroundColor:`${feito ? "#22c55e" : "#a8a29e"}`
       }}
-      color={`${data.feito ? "#ffffff" : "#000000"}`}
+      color={`${feito ? "#ffffff" : "#000000"}`}
       display={"flex"}
       justifyContent={"space-between"}
       alignItems={"center"}
@@ -44,8 +45,8 @@ export const ItemLista  = (props:ItemListaProps) => {
       alignItems={"center"}
       >
         <Checkbox
-          checked={data.feito}
-          onChange={props.tarefaFeita}
+          checked={feito}
+          onChange={tarefaFeita}
           icon={<FavoriteBorder />}
           checkedIcon={
             <Favorite
@@ -61,7 +62,7 @@ export const ItemLista  = (props:ItemListaProps) => {
           fontFamily={"Times"}
           fontSize={"18px"}
         >
-          {data.tarefa}
+          {tarefa}
         </Typography>
       </Box>
       <Box
@@ -74,8 +75,8 @@ export const ItemLista  = (props:ItemListaProps) => {
           sx={{
             color: "#1416ade6",
           }}
-          disabled={data.indice === 0 ? true : false}
-          onClick={() => props.mudarPosicao(data.indice, data.indice - 1)}
+          disabled={indice === 0 ? true : false}
+          onClick={() => mudarPosicao(indice, indice - 1)}
         >
           <ArrowUpwardIcon />
         </IconButton>
@@ -84,8 +85,8 @@ export const ItemLista  = (props:ItemListaProps) => {
           sx={{
             color: "#1416ade6",
           }}
-          disabled={data.total - 1 === data.indice ? true : false}
-          onClick={() => props.mudarPosicao(data.indice, data.indice + 1)}
+          disabled={total - 1 === indice ? true : false}
+          onClick={() => mudarPosicao(indice, indice + 1)}
         >
           <ArrowDownwardIcon />
         </IconButton>
@@ -94,7 +95,7 @@ export const ItemLista  = (props:ItemListaProps) => {
           sx={{
             color: "#910f0fe1",
           }}
-          onClick={props.apagarTarefa}
+          onClick={apagarTarefa}
         >
           <DeleteIcon />
         </IconButton>
