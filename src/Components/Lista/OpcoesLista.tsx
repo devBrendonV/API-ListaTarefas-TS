@@ -16,14 +16,17 @@ interface OpcoesListaProps {
     listaProvisoria: FormatoLista[]; 
     salvarMudancas: boolean; 
   };
-  func: {
-    setListaProvisoria: React.Dispatch<React.SetStateAction<FormatoLista[]>>; 
-  };
+  mudarListaProvisoria : (lista:FormatoLista[])=>void
 }
 
 const OpcoesLista = (props:OpcoesListaProps) => {
-  const [mostrar, setMostrar] = useState(true);
-  const { salvar, puxarDados, idAtual, deslogar } = useContext(Context);
+  const context = useContext(Context);
+  if (!context) {
+    return null;
+  }
+  const { salvar, puxarDados, idAtual, deslogar } = context;
+  const {mudarListaProvisoria} = props
+  const [mostrar, setMostrar] = useState<boolean>(true);
 
   return (
     <Box
@@ -73,7 +76,7 @@ const OpcoesLista = (props:OpcoesListaProps) => {
             title="Limpar lista atual"
             size="small"
             disabled={props.value.listaProvisoria.length === 0}
-            onClick={() => props.func.setListaProvisoria([])}
+            onClick={() => mudarListaProvisoria([])}
           >
             <PlaylistRemoveIcon />
           </IconButton>
