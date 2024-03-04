@@ -4,11 +4,11 @@ import SendIcon from "@mui/icons-material/Send";
 import { Context } from "../../Context";
 import { FormatoLista } from "../../types/FormatoLista";
 import { Historico } from "../Historico";
-import  OpcoesLista  from "./OpcoesLista";
-import  TarefaConcluida  from "./TarefaConcluida";
-
+import OpcoesLista from "./OpcoesLista";
+import TarefaConcluida from "./TarefaConcluida";
 
 export const Lista = () => {
+
   const [listaProvisoria, setListaProvisoria] = useState<FormatoLista[]>([]);
   const { listaAtual, idAtual } = useContext(Context);
   const [salvarMudancas, setSalvarMudancas] = useState<boolean>(false);
@@ -72,21 +72,16 @@ export const Lista = () => {
     setListaProvisoria(remocao);
   }
 
-  function mudarPosicao(posicaoAtual: number, posicaoNova: number) {
-    const listaMudancaProvisoria = listaProvisoria;
-    const mudancas = listaProvisoria.map((e, i) => {
-      if (i !== posicaoAtual && i !== posicaoNova) {
-        return e;
-      }
-      if (i === posicaoAtual) {
-        return listaMudancaProvisoria[posicaoNova];
-      }
-      if (i === posicaoNova) {
-        return listaMudancaProvisoria[posicaoAtual];
-      }
+  const mudarPosicao = (posicaoAtual: number, posicaoNova: number) => {
+    setListaProvisoria((prevLista) => {
+      const listaMudancaProvisoria = [...prevLista];
+      const temp = listaMudancaProvisoria[posicaoAtual];
+      listaMudancaProvisoria[posicaoAtual] = listaMudancaProvisoria[posicaoNova];
+      listaMudancaProvisoria[posicaoNova] = temp;
+      return listaMudancaProvisoria;
     });
-    setListaProvisoria(mudancas);
-  }
+  };
+
 
   return (
     <Box
@@ -126,17 +121,14 @@ export const Lista = () => {
     >
       <Box>
         <Box className="row-container">
-          <Typography  sx={{ marginLeft: "10px", width: "50%" }}>
+          <Typography sx={{ marginLeft: "10px", width: "50%" }}>
             Meu ID: {idAtual}
           </Typography>
 
           <OpcoesLista
-            func={({ setListaProvisoria })}
+            func={{ setListaProvisoria }}
             value={{ listaProvisoria, salvarMudancas }}
           />
-
-
-
         </Box>
         <Box className="text-field-container">
           <TextField
@@ -159,7 +151,7 @@ export const Lista = () => {
             size="small"
             disabled={texto.length === 0}
             onClick={() => adicionarTarefa()}
-            sx={{ fontSize: "5px" , variant:"contained"}}
+            sx={{ fontSize: "5px", variant: "contained" }}
           >
             <SendIcon />
           </IconButton>
@@ -171,11 +163,11 @@ export const Lista = () => {
       </Box>
       <Box flex={1} width="100%" color="black">
         <Historico
-          func={{
-            tarefaFeita: tarefaFeita,
-            mudarPosicao: mudarPosicao,
-            apagarTarefa: apagarTarefa,
-          }}
+          tarefaFeita={(posicao: number) => tarefaFeita(posicao)}
+          mudarPosicao={(posicaoAtual: number, posicaoNova: number) =>
+            mudarPosicao(posicaoAtual, posicaoNova)
+          }
+          apagarTarefa={(posicao: number) => apagarTarefa(posicao)}
           value={{ lista: listaProvisoria, total: listaProvisoria.length }}
         />
       </Box>
