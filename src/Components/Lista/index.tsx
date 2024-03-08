@@ -8,11 +8,7 @@ import OpcoesLista from "./OpcoesLista";
 import TarefaConcluida from "./TarefaConcluida";
 
 export const Lista = () => {
-  const context = useContext(Context);
-  if (!context) {
-    return null;
-  }
-  const { listaAtual, idAtual } = context;
+  const { listaAtual, idAtual } = useContext(Context);
   const [listaProvisoria, setListaProvisoria] = useState<FormatoLista[]>([]);
   const [salvarMudancas, setSalvarMudancas] = useState<boolean>(false);
   const [tarefaConcluida, setTarefaConcluida] = useState<boolean>(false);
@@ -129,8 +125,11 @@ export const Lista = () => {
           </Typography>
 
           <OpcoesLista
-            mudarListaProvisoria={(lista:FormatoLista[])=>setListaProvisoria(lista)}
-            value={{ listaProvisoria, salvarMudancas }}
+            mudarListaProvisoria={(lista: FormatoLista[]) =>
+              setListaProvisoria(lista)
+            }
+            listaProvisoria={listaProvisoria}
+            salvarMudancas={salvarMudancas}
           />
         </Box>
         <Box className="text-field-container">
@@ -161,7 +160,9 @@ export const Lista = () => {
         </Box>
 
         <Box className="send-button-container">
-          <TarefaConcluida tarefaConcluida={(tarefa:boolean)=>setTarefaConcluida(tarefa)}/>
+          <TarefaConcluida
+            tarefaConcluida={(tarefa: boolean) => setTarefaConcluida(tarefa)}
+          />
         </Box>
       </Box>
       <Box flex={1} width="100%" color="black">
@@ -171,7 +172,8 @@ export const Lista = () => {
             mudarPosicao(posicaoAtual, posicaoNova)
           }
           apagarTarefa={(posicao: number) => apagarTarefa(posicao)}
-          value={{ lista: listaProvisoria, total: listaProvisoria.length }}
+          lista={listaProvisoria}
+          total={listaProvisoria.length}
         />
       </Box>
     </Box>

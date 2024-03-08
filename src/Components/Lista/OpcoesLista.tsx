@@ -10,22 +10,15 @@ import DeletarLista from "./DeletarLista";
 
 import { FormatoLista } from "../../types/FormatoLista";
 
-
 interface OpcoesListaProps {
-  value: {
-    listaProvisoria: FormatoLista[]; 
-    salvarMudancas: boolean; 
-  };
-  mudarListaProvisoria : (lista:FormatoLista[])=>void
+  listaProvisoria: FormatoLista[];
+  salvarMudancas: boolean;
+  mudarListaProvisoria: (lista: FormatoLista[]) => void;
 }
 
-const OpcoesLista = (props:OpcoesListaProps) => {
-  const context = useContext(Context);
-  if (!context) {
-    return null;
-  }
-  const { salvar, puxarDados, idAtual, deslogar } = context;
-  const {mudarListaProvisoria} = props
+const OpcoesLista = (props: OpcoesListaProps) => {
+  const { salvar, puxarDados, idAtual, deslogar } = useContext(Context);
+  const { listaProvisoria, salvarMudancas, mudarListaProvisoria } = props;
   const [mostrar, setMostrar] = useState<boolean>(true);
 
   return (
@@ -51,8 +44,8 @@ const OpcoesLista = (props:OpcoesListaProps) => {
             }}
             title="Salvar Lista"
             size="small"
-            disabled={props.value.salvarMudancas}
-            onClick={() => salvar(props.value.listaProvisoria)}
+            disabled={salvarMudancas}
+            onClick={() => salvar(listaProvisoria)}
           >
             <SaveIcon />
           </IconButton>
@@ -63,7 +56,7 @@ const OpcoesLista = (props:OpcoesListaProps) => {
             }}
             title="Recarregar"
             size="small"
-            disabled={props.value.salvarMudancas}
+            disabled={salvarMudancas}
             onClick={() => puxarDados(idAtual)}
           >
             <RefreshIcon />
@@ -75,7 +68,7 @@ const OpcoesLista = (props:OpcoesListaProps) => {
             }}
             title="Limpar lista atual"
             size="small"
-            disabled={props.value.listaProvisoria.length === 0}
+            disabled={listaProvisoria.length === 0}
             onClick={() => mudarListaProvisoria([])}
           >
             <PlaylistRemoveIcon />

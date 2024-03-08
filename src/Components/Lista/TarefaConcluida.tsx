@@ -9,7 +9,7 @@ interface TarefaConcluidaProps {
 }
 
 const TarefaConcluida = (props: TarefaConcluidaProps) => {
-  const {tarefaConcluida} = props
+  const { tarefaConcluida } = props;
   return (
     <FormControl
       sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}

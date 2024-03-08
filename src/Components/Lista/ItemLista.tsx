@@ -6,21 +6,25 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 
 interface ItemListaProps {
-  value: {
-    tarefa: string;
-    feito: boolean;
-    indice: number;
-    total: number;
-  };
+  tarefa: string;
+  feito: boolean;
+  indice: number;
+  total: number;
   tarefaFeita: () => void;
   mudarPosicao: (from: number, to: number) => void;
   apagarTarefa: () => void;
 }
 
-
-export const ItemLista  = (props:ItemListaProps) => {
-  const { tarefa,feito,indice,total} = props.value
-  const {tarefaFeita,mudarPosicao,apagarTarefa} = props
+export const ItemLista = (props: ItemListaProps) => {
+  const {
+    tarefa,
+    feito,
+    indice,
+    total,
+    tarefaFeita,
+    mudarPosicao,
+    apagarTarefa,
+  } = props;
   const [mostrarOpcoes, setMostrarOpcoes] = useState<boolean>(false);
 
   return (
@@ -30,7 +34,7 @@ export const ItemLista  = (props:ItemListaProps) => {
       marginBottom={"5px"}
       padding={"3px 10px"}
       sx={{
-        backgroundColor:`${feito ? "#22c55e" : "#a8a29e"}`
+        backgroundColor: `${feito ? "#22c55e" : "#a8a29e"}`,
       }}
       color={`${feito ? "#ffffff" : "#000000"}`}
       display={"flex"}
@@ -40,10 +44,7 @@ export const ItemLista  = (props:ItemListaProps) => {
       onMouseEnter={() => setMostrarOpcoes(true)}
       minHeight={"50px"}
     >
-      <Box
-      display={"flex"}
-      alignItems={"center"}
-      >
+      <Box display={"flex"} alignItems={"center"}>
         <Checkbox
           checked={feito}
           onChange={tarefaFeita}
@@ -57,11 +58,7 @@ export const ItemLista  = (props:ItemListaProps) => {
           }
         />
 
-        <Typography
-          paddingLeft={"10px"}
-          fontFamily={"Times"}
-          fontSize={"18px"}
-        >
+        <Typography paddingLeft={"10px"} fontFamily={"Times"} fontSize={"18px"}>
           {tarefa}
         </Typography>
       </Box>

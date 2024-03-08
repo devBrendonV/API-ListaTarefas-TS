@@ -10,11 +10,7 @@ import { useContext, useState } from "react";
 import { IconButton } from "@mui/material";
 
 export default function DeletarLista() {
-  const context = useContext(Context);
-  if (!context) {
-    return null;
-  }
-  const { apagar, idAtual } = context;
+  const { apagar, idAtual } = useContext(Context);
   const [open, setOpen] = useState<boolean>(false);
 
   const handleClickOpen = () => {

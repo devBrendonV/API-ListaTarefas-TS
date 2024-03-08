@@ -1,21 +1,17 @@
 import { Box } from "@mui/material";
-import { ItemLista } from "../Lista/ItemLista"; 
+import { ItemLista } from "../Lista/ItemLista";
 import { FormatoLista } from "../../types/FormatoLista";
 
 interface HistoricoProps {
-  value: {
-    total: number;
-    lista: FormatoLista[]; 
-  };
-    tarefaFeita: (index: number) => void;
-    mudarPosicao: (from: number, to: number) => void;
-    apagarTarefa: (index: number) => void;
+  total: number;
+  lista: FormatoLista[];
+  tarefaFeita: (index: number) => void;
+  mudarPosicao: (from: number, to: number) => void;
+  apagarTarefa: (index: number) => void;
 }
 
-export const Historico = (props:HistoricoProps) => {
-  const {total,lista} = props.value
-  const {tarefaFeita,mudarPosicao,apagarTarefa} = props
-
+export const Historico = (props: HistoricoProps) => {
+  const { total, lista, tarefaFeita, mudarPosicao, apagarTarefa } = props;
 
   if (total === 0) {
     return (
@@ -40,7 +36,7 @@ export const Historico = (props:HistoricoProps) => {
       height={"40vh"}
       alignItems={"center"}
     >
-      {lista.map((e, i) => {
+      {lista.map((e: FormatoLista, i: number) => {
         return (
           <ItemLista
             key={i}
@@ -53,12 +49,10 @@ export const Historico = (props:HistoricoProps) => {
             apagarTarefa={() => {
               apagarTarefa(i);
             }}
-            value={{
-              tarefa: e.tarefa,
-              feito: e.feito,
-              indice: i,
-              total: total,
-            }}
+            tarefa={e.tarefa}
+            feito={e.feito}
+            indice={i}
+            total={total}
           />
         );
       })}
