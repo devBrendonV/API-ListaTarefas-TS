@@ -5,11 +5,7 @@ import { Lista } from "../Lista";
 import { Context } from "../../Context";
 
 export const Content = () => {
-  const context = useContext(Context)
-  if(!context){
-    return null
-  }
-  const { logado } = context;
+  const { logado } = useContext(Context);
 
   if (!logado) {
     return (
@@ -20,7 +16,7 @@ export const Content = () => {
         padding={"5px"}
         borderRadius={"10px"}
         sx={{
-        backgroundColor:"#d4d4d4"
+          backgroundColor: "#d4d4d4",
         }}
       >
         <Login />
@@ -35,8 +31,8 @@ export const Content = () => {
         height={"550px"}
         borderRadius={"15px"}
         sx={{
-          backgroundColor:"#d4d4d4"
-          }}
+          backgroundColor: "#d4d4d4",
+        }}
       >
         <Lista />
       </Box>

@@ -3,12 +3,7 @@ import { Box, Typography, Button, TextField } from "@mui/material";
 import { Context } from "../../Context";
 
 export const Login: React.FC = () => {
-  const context = useContext(Context);
-  if (!context) {
-    return null;
-  }
-  const { criar, idAtual, puxarDados } = context;
-
+  const { criar, idAtual, puxarDados } = useContext(Context);
   const [meuID, setMeuID] = useState<string>("");
   useEffect(() => {
     setMeuID(idAtual);
