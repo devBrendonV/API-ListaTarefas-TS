@@ -2,11 +2,9 @@ import { createContext, useState, ReactNode } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-import {FormatoLista} from "../types/FormatoLista"
+import { FormatoLista } from "../types/FormatoLista";
 
-const URL = "http://localhost:3000"; 
-
-
+const URL = "http://localhost:3000";
 
 interface ContextProps {
   listaAtual: FormatoLista[];
@@ -19,13 +17,24 @@ interface ContextProps {
   apagar: (recebido: string) => void;
 }
 
-export const Context = createContext<ContextProps | undefined>(undefined);
+export const Context = createContext<ContextProps>({
+  listaAtual: [],
+  idAtual: "",
+  logado: false,
+  deslogar: () => {},
+  puxarDados: () => {},
+  criar: () => {},
+  salvar: () => {},
+  apagar: () => {},
+});
 
 interface ContextProviderProps {
   children: ReactNode;
 }
 
-export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) => {
+export const ContextProvider: React.FC<ContextProviderProps> = ({
+  children,
+}) => {
   const [logado, setLogado] = useState(false);
   const [listaAtual, setListaAtual] = useState<FormatoLista[]>([]);
   const [idAtual, setIdAtual] = useState("");
@@ -101,7 +110,7 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({ children }) =>
         puxarDados,
         criar,
         salvar,
-        apagar 
+        apagar,
       }}
     >
       {children}
